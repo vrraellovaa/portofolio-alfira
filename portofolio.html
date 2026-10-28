@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Ajaib Alfira ✨</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti for Form Submission -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            pink: '#FFD1DC',
+                            lightpink: '#FFF0F5',
+                            darkpink: '#FFB6C1',
+                            lilac: '#E6E6FA',
+                            darklilac: '#D8BFD8',
+                            peach: '#FFE4E1',
+                            mint: '#E0F8E9',
+                            yellow: '#FFFACD',
+                            cream: '#FFFDD0',
+                            purple: '#9370DB',
+                            textDark: '#4A3E3D',
+                            nightBg: '#1E1B2E',
+                            nightCard: '#2A2640',
+                            nightText: '#F3E8FF'
+                        }
+                    },
+                    fontFamily: {
+                        quicksand: ['Quicksand', 'sans-serif'],
+                        fredoka: ['Fredoka', 'cursive'],
+                    },
+                    animation: {
+                        'float': 'float 4s ease-in-out infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { filter: 'drop-shadow(0 0 10px rgba(255, 182, 193, 0.8))' },
+                            '50%': { filter: 'drop-shadow(0 0 22px rgba(230, 230, 250, 0.9))' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            cursor: default;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF0F5;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #1E1B2E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFB6C1;
+            border-radius: 10px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #9370DB;
+        }
+
+        /* Sparkle Particle Styling */
+        .sparkle-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 14px;
+            user-select: none;
+            animation: fadeOutDown 1s forwards ease-out;
+        }
+
+        @keyframes fadeOutDown {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tw-x, 10px), var(--tw-y, 25px)) scale(0.3) rotate(45deg);
+            }
+        }
+
+        /* Background Animated Canvas */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Mascot Ears & Tail CSS Keyframes */
+        .cat-ear-left {
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+        .cat-ear-right {
+            transform-origin: bottom left;
+            transition: transform 0.3s ease;
+        }
+        .mascot-container:hover .cat-ear-left {
+            transform: rotate(-12deg);
+        }
+        .mascot-container:hover .cat-ear-right {
+            transform: rotate(12deg);
+        }
+
+        /* Glassmorphism Card */
+        .cute-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 25px -5px rgba(255, 182, 193, 0.4);
+        }
+        .dark .cute-card {
+            background: rgba(42, 38, 64, 0.8);
+            border: 2.5px solid rgba(147, 112, 219, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Floating Heart animation from Mascot */
+        .heart-bubble {
+            position: absolute;
+            pointer-events: none;
+            animation: floatUp 1.5s ease-out forwards;
+            font-size: 20px;
+        }
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(0.8); }
+            100% { opacity: 0; transform: translateY(-80px) scale(1.4); }
+        }
+    </style>
+</head>
+
+<body class="bg-pastel-lightpink dark:bg-pastel-nightBg text-pastel-textDark dark:text-pastel-nightText transition-colors duration-500 min-h-screen relative overflow-x-hidden">
+
+    <!-- Interactive Background Canvas -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-5xl z-50">
+        <nav class="cute-card rounded-full px-6 py-3 flex items-center justify-between transition-all duration-300">
+            <!-- Brand Logo -->
+            <a href="#" class="font-fredoka text-xl sm:text-2xl font-bold text-pink-500 dark:text-pink-300 flex items-center gap-2 hover:scale-105 transition-transform">
+                <span class="text-2xl animate-bounce">🌸</span>
+                <span>Alfira.dev</span>
+            </a>
+
+            <!-- Nav Links (Desktop) -->
+            <div class="hidden md:flex items-center space-x-6 font-fredoka font-medium text-sm lg:text-base">
+                <a href="#about" class="hover:text-pink-500 dark:hover:text-pink-300 transition-colors hover:scale-105 inline-block">Tentang Aku</a>
+                <a href="#projects" class="hover:text-pink-500 dark:hover:text-pink-300 transition-colors hover:scale-105 inline-block">Karya</a>
+                <a href="#skills" class="hover:text-pink-500 dark:hover:text-pink-300 transition-colors hover:scale-105 inline-block">Keahlian</a>
+                <a href="#contact" class="hover:text-pink-500 dark:hover:text-pink-300 transition-colors hover:scale-105 inline-block">Kontak</a>
+            </div>
+
+            <!-- Action Controls (Sound & Theme Toggle) -->
+            <div class="flex items-center gap-3">
+                <!-- Audio Sound Toggle -->
+                <button id="soundToggleBtn" onclick="toggleSound()" class="w-10 h-10 rounded-full bg-pastel-mint dark:bg-purple-900/50 flex items-center justify-center text-teal-600 dark:text-teal-300 hover:scale-110 active:scale-95 transition-transform border-2 border-white dark:border-purple-500" title="Suara Lucu">
+                    <i id="soundIcon" class="fas fa-volume-up text-sm"></i>
+                </button>
+
+                <!-- Light/Dark Mode Toggle -->
+                <button id="themeToggleBtn" onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-pastel-yellow dark:bg-purple-950 flex items-center justify-center text-amber-500 dark:text-purple-300 hover:scale-110 active:scale-95 transition-transform border-2 border-white dark:border-purple-500" title="Ganti Tema">
+                    <i id="themeIcon" class="fas fa-sun text-sm"></i>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-full bg-pastel-pink dark:bg-purple-800 flex items-center justify-center text-pink-700 dark:text-pink-200">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden mt-3 cute-card rounded-2xl p-5 flex flex-col gap-3 font-fredoka text-center">
+            <a href="#about" onclick="toggleMobileMenu()" class="py-2 hover:bg-pink-100 dark:hover:bg-purple-900/40 rounded-xl transition-colors">Tentang Aku</a>
+            <a href="#projects" onclick="toggleMobileMenu()" class="py-2 hover:bg-pink-100 dark:hover:bg-purple-900/40 rounded-xl transition-colors">Karya</a>
+            <a href="#skills" onclick="toggleMobileMenu()" class="py-2 hover:bg-pink-100 dark:hover:bg-purple-900/40 rounded-xl transition-colors">Keahlian</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="py-2 hover:bg-pink-100 dark:hover:bg-purple-900/40 rounded-xl transition-colors">Kontak</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="relative z-10 pt-28 px-4 sm:px-8 max-w-6xl mx-auto space-y-24 sm:space-y-32 pb-20">
+
+        <!-- HERO SECTION -->
+        <section class="min-h-[80vh] flex flex-col-reverse lg:flex-row items-center justify-between gap-12 pt-6">
+            <!-- Left Text Content -->
+            <div class="flex-1 text-center lg:text-left space-y-6">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-purple-900/60 border-2 border-pink-300 dark:border-purple-400 text-pink-600 dark:text-pink-300 font-fredoka text-sm shadow-sm animate-bounce-slow">
+                    <span>✨ Selamat datang di ruang kreatifku!</span>
+                </div>
+
+                <h1 class="font-fredoka text-4xl sm:text-6xl font-bold tracking-tight text-gray-800 dark:text-purple-100 leading-tight">
+                    Halo semua! Aku <br class="hidden sm:inline" />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 animate-pulse-glow">
+                        Alfira Damayanti ✨
+                    </span>
+                </h1>
+
+                <p class="text-base sm:text-lg font-medium text-gray-600 dark:text-purple-200/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    Seorang <span class="font-bold text-pink-500">Desainer UI/UX</span> & <span class="font-bold text-purple-500">Frontend Developer</span> yang suka merancang pengalaman digital yang menggemaskan, rapi, dan penuh keajaiban 💕
+                </p>
+
+                <!-- Hero Buttons -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                    <a href="#projects" onclick="playCuteSound()" class="px-7 py-3.5 rounded-full bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-fredoka font-semibold shadow-lg shadow-pink-300/50 dark:shadow-purple-900/50 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+                        <i class="fas fa-heart"></i>
+                        <span>Lihat Karyaku</span>
+                    </a>
+                    <a href="#contact" onclick="playCuteSound()" class="px-7 py-3.5 rounded-full bg-white dark:bg-purple-900/80 text-pink-500 dark:text-pink-300 border-2 border-pink-300 dark:border-purple-400 font-fredoka font-semibold hover:bg-pink-50 dark:hover:bg-purple-800 hover:scale-105 active:scale-95 transition-all shadow-sm flex items-center gap-2">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Hubungi Aku 💕</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Interactive Mascot Graphic -->
+            <div class="flex-1 flex justify-center items-center relative">
+                <!-- Floating Decorative Embellishments -->
+                <div class="absolute -top-6 -left-6 text-3xl animate-float">☁️</div>
+                <div class="absolute -bottom-6 right-8 text-3xl animate-float" style="animation-delay: 1.5s;">🌟</div>
+                <div class="absolute top-1/2 -right-8 text-3xl animate-bounce-slow">💖</div>
+
+                <!-- Interactive Animated SVG Kitty Mascot -->
+                <div id="mascotWrapper" onclick="interactMascot(event)" class="mascot-container relative cursor-pointer select-none group p-4">
+                    <!-- Glow aura background -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-pink-300 to-purple-300 dark:from-purple-600 dark:to-pink-600 rounded-full filter blur-2xl opacity-50 group-hover:opacity-80 transition-opacity"></div>
+                    
+                    <svg class="w-64 h-64 sm:w-80 sm:h-80 relative z-10 filter drop-shadow-xl transition-transform duration-300 hover:scale-105" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Kitty Ears -->
+                        <path class="cat-ear-left" d="M45 75 L25 25 L80 50 Z" fill="#FFD1DC" stroke="#FFB6C1" stroke-width="4" stroke-linejoin="round"/>
+                        <path class="cat-ear-left" d="M48 68 L35 35 L72 52 Z" fill="#FFB6C1"/>
+                        <path class="cat-ear-right" d="M155 75 L175 25 L120 50 Z" fill="#FFD1DC" stroke="#FFB6C1" stroke-width="4" stroke-linejoin="round"/>
+                        <path class="cat-ear-right" d="M152 68 L165 35 L128 52 Z" fill="#FFB6C1"/>
+
+                        <!-- Kitty Head Body -->
+                        <ellipse cx="100" cy="110" rx="65" ry="55" fill="#FFF0F5" stroke="#FFB6C1" stroke-width="4"/>
+
+                        <!-- Soft Blush Cheek Circles -->
+                        <circle cx="55" cy="120" r="12" fill="#FFB6C1" opacity="0.6"/>
+                        <circle cx="145" cy="120" r="12" fill="#FFB6C1" opacity="0.6"/>
+
+                        <!-- Animated Eyes (Blinkable) -->
+                        <g id="mascotEyes">
+                            <ellipse cx="70" cy="102" rx="7" ry="9" fill="#4A3E3D"/>
+                            <ellipse cx="130" cy="102" rx="7" ry="9" fill="#4A3E3D"/>
+                            <!-- Eye Sparkle Highlights -->
+                            <circle cx="68" cy="99" r="2.5" fill="white"/>
+                            <circle cx="128" cy="99" r="2.5" fill="white"/>
+                        </g>
+
+                        <!-- Snout & Mouth -->
+                        <polygon points="100,113 96,118 104,118" fill="#FF8DA1"/>
+                        <path d="M93 121 C 97 126, 100 123, 100 120 C 100 123, 103 126, 107 121" stroke="#4A3E3D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+                        <!-- Whiskers -->
+                        <line x1="30" y1="110" x2="50" y2="112" stroke="#FFB6C1" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="28" y1="120" x2="48" y2="119" stroke="#FFB6C1" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="170" y1="110" x2="150" y2="112" stroke="#FFB6C1" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="172" y1="120" x2="152" y2="119" stroke="#FFB6C1" stroke-width="3" stroke-linecap="round"/>
+
+                        <!-- Head Accessory Ribbon/Flower -->
+                        <path d="M135 60 C 125 50, 125 70, 135 60 C 145 50, 145 70, 135 60 Z" fill="#FF69B4"/>
+                        <circle cx="135" cy="60" r="4" fill="#FFFACD"/>
+                    </svg>
+
+                    <!-- Mascot Helper Tooltip Bubble -->
+                    <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white dark:bg-purple-900 border-2 border-pink-300 dark:border-purple-400 text-pink-600 dark:text-pink-300 px-3 py-1 rounded-full text-xs font-fredoka shadow-md whitespace-nowrap animate-bounce">
+                        Klik aku! 🐾
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT ME SECTION -->
+        <section id="about" class="scroll-mt-32">
+            <div class="text-center space-y-3 mb-12">
+                <h2 class="font-fredoka text-3xl sm:text-4xl font-bold text-gray-800 dark:text-purple-100 flex items-center justify-center gap-3">
+                    <span>🎀</span> Tentang Alfira <span>🎀</span>
+                </h2>
+                <p class="text-gray-500 dark:text-purple-300 text-sm sm:text-base font-medium">Kenalan lebih dekat dengan aku dan hal-hal yang aku suka!</p>
+            </div>
+
+            <div class="cute-card rounded-3xl p-6 sm:p-10 relative overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Profile Avatar Card -->
+                    <div class="md:col-span-5 flex flex-col items-center text-center space-y-4">
+                        <div class="relative group">
+                            <div class="w-44 h-44 sm:w-52 sm:h-52 rounded-full p-2 bg-gradient-to-tr from-pink-300 via-purple-300 to-mint-300 dark:from-purple-600 dark:to-pink-500 shadow-inner">
+                                <img src="https://placehold.co/300x300/FFD1DC/4A3E3D?text=Alfira+Avatar+✨" alt="Avatar Alfira Damayanti" class="w-full h-full object-cover rounded-full border-4 border-white dark:border-purple-900 group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <span class="absolute bottom-2 right-2 text-2xl bg-white dark:bg-purple-800 p-2 rounded-full shadow-md">🌸</span>
+                        </div>
+                        <h3 class="font-fredoka text-2xl font-bold text-gray-800 dark:text-purple-100">Alfira Damayanti</h3>
+                        <p class="text-sm text-pink-500 dark:text-pink-300 font-bold">Tinggal di Indonesia 🇮🇩</p>
+                    </div>
+
+                    <!-- Bio Text & Tag Badges -->
+                    <div class="md:col-span-7 space-y-6">
+                        <p class="text-base sm:text-lg text-gray-600 dark:text-purple-200 leading-relaxed font-medium">
+                            Halo! Aku Alfira, seorang perancang dan pengembang web yang suka merubah ide-ide imajinatif menjadi produk digital yang imut, fungsional, dan mudah digunakan. Bagi aku, desain dan kode tidak hanya harus berjalan lancar, tapi juga bisa membuat orang lain tersenyum! ✨
+                        </p>
+
+                        <!-- Cute Trait Badges -->
+                        <div class="flex flex-wrap gap-2.5 pt-2">
+                            <span class="px-3.5 py-1.5 rounded-full bg-pastel-pink/70 dark:bg-purple-900/70 border border-pink-300 text-pink-700 dark:text-pink-200 font-fredoka text-xs sm:text-sm font-medium flex items-center gap-1.5 hover:scale-105 transition-transform">
+                                ☕ Pecinta Kopi
+                            </span>
+                            <span class="px-3.5 py-1.5 rounded-full bg-pastel-mint/70 dark:bg-purple-900/70 border border-teal-300 text-teal-700 dark:text-teal-200 font-fredoka text-xs sm:text-sm font-medium flex items-center gap-1.5 hover:scale-105 transition-transform">
+                                🎨 Detail & Rapi
+                            </span>
+                            <span class="px-3.5 py-1.5 rounded-full bg-pastel-peach/70 dark:bg-purple-900/70 border border-orange-300 text-orange-700 dark:text-orange-200 font-fredoka text-xs sm:text-sm font-medium flex items-center gap-1.5 hover:scale-105 transition-transform">
+                                💻 Kode & Keajaiban
+                            </span>
+                            <span class="px-3.5 py-1.5 rounded-full bg-pastel-yellow/70 dark:bg-purple-900/70 border border-yellow-300 text-amber-700 dark:text-yellow-200 font-fredoka text-xs sm:text-sm font-medium flex items-center gap-1.5 hover:scale-105 transition-transform">
+                                🎧 Musik Santai
+                            </span>
+                        </div>
+
+                        <!-- Quick Stats Mini Boxes -->
+                        <div class="grid grid-cols-3 gap-4 pt-4 border-t border-pink-100 dark:border-purple-800/60">
+                            <div class="text-center p-3 rounded-2xl bg-white/60 dark:bg-purple-900/40">
+                                <p class="font-fredoka text-2xl font-bold text-pink-500">3+</p>
+                                <p class="text-xs font-semibold text-gray-500 dark:text-purple-300">Tahun Pengalaman</p>
+                            </div>
+                            <div class="text-center p-3 rounded-2xl bg-white/60 dark:bg-purple-900/40">
+                                <p class="font-fredoka text-2xl font-bold text-purple-500">25+</p>
+                                <p class="text-xs font-semibold text-gray-500 dark:text-purple-300">Proyek Lucu</p>
+                            </div>
+                            <div class="text-center p-3 rounded-2xl bg-white/60 dark:bg-purple-900/40">
+                                <p class="font-fredoka text-2xl font-bold text-teal-500">100%</p>
+                                <p class="text-xs font-semibold text-gray-500 dark:text-purple-300">Klien Senang</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO / PROJECTS SECTION -->
+        <section id="projects" class="scroll-mt-32">
+            <div class="text-center space-y-3 mb-10">
+                <h2 class="font-fredoka text-3xl sm:text-4xl font-bold text-gray-800 dark:text-purple-100 flex items-center justify-center gap-3">
+                    <span>🌷</span> Hasil Karya Alfira <span>🌷</span>
+                </h2>
+                <p class="text-gray-500 dark:text-purple-300 text-sm sm:text-base font-medium">Jelajahi berbagai proyek desain UI/UX dan pengembang web milikku</p>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-10 font-fredoka">
+                <button onclick="filterProjects('all', event)" class="project-tab-btn active px-5 py-2 rounded-full text-sm font-semibold bg-pink-400 text-white shadow-md transition-all hover:scale-105">
+                    Semua Karya ✨
+                </button>
+                <button onclick="filterProjects('ui', event)" class="project-tab-btn px-5 py-2 rounded-full text-sm font-semibold bg-white dark:bg-purple-900/80 text-gray-600 dark:text-purple-200 hover:bg-pink-100 transition-all hover:scale-105">
+                    🎨 Desain UI/UX
+                </button>
+                <button onclick="filterProjects('web', event)" class="project-tab-btn px-5 py-2 rounded-full text-sm font-semibold bg-white dark:bg-purple-900/80 text-gray-600 dark:text-purple-200 hover:bg-pink-100 transition-all hover:scale-105">
+                    💻 Pemrograman Web
+                </button>
+                <button onclick="filterProjects('brand', event)" class="project-tab-btn px-5 py-2 rounded-full text-sm font-semibold bg-white dark:bg-purple-900/80 text-gray-600 dark:text-purple-200 hover:bg-pink-100 transition-all hover:scale-105">
+                    💖 Branding
+                </button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                
+                <!-- Project Item 2 -->
+                <div class="project-card cute-card rounded-3xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 flex flex-col" data-category="web">
+                    <div class="relative overflow-hidden h-48 bg-pastel-mint/40">
+                        <img src="https://placehold.co/600x400/E0F8E9/4A3E3D?text=HRIS" alt="Website Toko Matcha" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-3 right-3 bg-white/90 dark:bg-purple-900/90 text-teal-600 text-xs font-fredoka px-3 py-1 rounded-full font-bold shadow">
+                            Pemrograman Web
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-fredoka text-xl font-bold text-gray-800 dark:text-purple-100 group-hover:text-teal-500 transition-colors">
+                                HRIS
+                            </h3>
+                            <p class="text-xs sm:text-sm text-gray-500 dark:text-purple-300 mt-2 font-medium leading-relaxed">
+                                Aplikasi absen untuk karyawan
+                            </p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex flex-wrap gap-2 text-xs font-semibold text-teal-600 dark:text-teal-300">
+                                <span class="bg-teal-100 dark:bg-purple-900/60 px-2.5 py-1 rounded-lg">PHP</span>
+                                <span class="bg-teal-100 dark:bg-purple-900/60 px-2.5 py-1 rounded-lg">Framer Motion</span>
+                            </div>
+                            <button onclick="openModal('HRIS', 'Khusus untuk absensi serta keperluan setiap karyawan dari suatu perusahaan', 'https://placehold.co/800x500/E0F8E9/4A3E3D?text=Absensi+Karyawan')" class="w-full py-2.5 rounded-2xl bg-pastel-mint dark:bg-purple-800 text-teal-800 dark:text-teal-200 font-fredoka text-sm font-semibold hover:bg-teal-200 dark:hover:bg-purple-700 transition-colors flex items-center justify-center gap-2">
+                                <span>Lihat Proyek</span>
+                                <i class="fas fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- EXPERIENCE & SKILLS SECTION -->
+        <section id="skills" class="scroll-mt-32">
+            <div class="text-center space-y-3 mb-12">
+                <h2 class="font-fredoka text-3xl sm:text-4xl font-bold text-gray-800 dark:text-purple-100 flex items-center justify-center gap-3">
+                    <span>⭐</span> Keahlian & Perjalanan Alfira <span>⭐</span>
+                </h2>
+                <p class="text-gray-500 dark:text-purple-300 text-sm sm:text-base font-medium">Kemampuan teknis dan pengalaman karir kreatifku</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+                <!-- Skill Meter Progress Bars -->
+                <div class="cute-card rounded-3xl p-6 sm:p-8 space-y-6">
+                    <h3 class="font-fredoka text-2xl font-bold text-gray-800 dark:text-purple-100 flex items-center gap-2">
+                        <span>🎨</span> Alat Kreatif
+                    </h3>
+
+                    <div class="space-y-5">
+                        <!-- Skill Item 1 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm font-fredoka font-semibold">
+                                <span class="flex items-center gap-2"><i class="fab fa-figma text-pink-500"></i> Figma & Desain UI/UX</span>
+                                <span class="text-pink-500">85%</span>
+                            </div>
+                            <div class="h-3 w-full bg-pink-100 dark:bg-purple-900/60 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-pink-400 to-pink-500 rounded-full w-[85%] transition-all duration-1000"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item 2 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm font-fredoka font-semibold">
+                                <span class="flex items-center gap-2"><i class="fab fa-html5 text-orange-400"></i> PHP/LARAVEL/CI3</span>
+                                <span class="text-purple-500">70%</span>
+                            </div>
+                            <div class="h-3 w-full bg-purple-100 dark:bg-purple-900/60 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-purple-400 to-indigo-400 rounded-full w-[70%] transition-all duration-1000"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item 3 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm font-fredoka font-semibold">
+                                <span class="flex items-center gap-2"><i class="fab fa-js text-yellow-500"></i> JavaScript / React.js</span>
+                                <span class="text-teal-500">55%</span>
+                            </div>
+                            <div class="h-3 w-full bg-teal-100 dark:bg-purple-900/60 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-teal-300 to-teal-500 rounded-full w-[55%] transition-all duration-1000"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Item 4 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm font-fredoka font-semibold">
+                                <span class="flex items-center gap-2"><i class="fas fa-magic text-purple-400"></i> Ilustrasi & Grafis Gerak</span>
+                                <span class="text-amber-500">80%</span>
+                            </div>
+                            <div class="h-3 w-full bg-yellow-100 dark:bg-purple-900/60 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-amber-300 to-amber-400 rounded-full w-[80%] transition-all duration-1000"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="scroll-mt-32">
+            <div class="text-center space-y-3 mb-12">
+                <h2 class="font-fredoka text-3xl sm:text-4xl font-bold text-gray-800 dark:text-purple-100 flex items-center justify-center gap-3">
+                    <span>💌</span> Hubungi Alfira <span>💌</span>
+                </h2>
+                <p class="text-gray-500 dark:text-purple-300 text-sm sm:text-base font-medium">Punya proyek seru atau mau sekadar menyapa? Kirim pesan yuk!</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto cute-card rounded-3xl p-6 sm:p-10 relative">
+                <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Name Field -->
+                        <div class="space-y-2">
+                            <label for="name" class="font-fredoka text-sm font-semibold text-gray-700 dark:text-purple-200">Nama Kamu ✨</label>
+                            <input type="text" id="name" required placeholder="Contoh: Luna Lovegood" class="w-full px-4 py-3 rounded-2xl bg-white/80 dark:bg-purple-900/50 border-2 border-pink-200 dark:border-purple-600 focus:border-pink-400 dark:focus:border-purple-400 focus:outline-none font-medium transition-all text-sm">
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="space-y-2">
+                            <label for="email" class="font-fredoka text-sm font-semibold text-gray-700 dark:text-purple-200">Email Kamu 📧</label>
+                            <input type="email" id="email" required placeholder="halo@duniainsan.com" class="w-full px-4 py-3 rounded-2xl bg-white/80 dark:bg-purple-900/50 border-2 border-pink-200 dark:border-purple-600 focus:border-pink-400 dark:focus:border-purple-400 focus:outline-none font-medium transition-all text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Subject Field -->
+                    <div class="space-y-2">
+                        <label for="subject" class="font-fredoka text-sm font-semibold text-gray-700 dark:text-purple-200">Subjek 🎈</label>
+                        <input type="text" id="subject" required placeholder="Yuk buat proyek seru bareng!" class="w-full px-4 py-3 rounded-2xl bg-white/80 dark:bg-purple-900/50 border-2 border-pink-200 dark:border-purple-600 focus:border-pink-400 dark:focus:border-purple-400 focus:outline-none font-medium transition-all text-sm">
+                    </div>
+
+                    <!-- Message Field -->
+                    <div class="space-y-2">
+                        <label for="message" class="font-fredoka text-sm font-semibold text-gray-700 dark:text-purple-200">Pesan Kamu 💕</label>
+                        <textarea id="message" rows="4" required placeholder="Tulis pesan kamu di sini..." class="w-full px-4 py-3 rounded-2xl bg-white/80 dark:bg-purple-900/50 border-2 border-pink-200 dark:border-purple-600 focus:border-pink-400 dark:focus:border-purple-400 focus:outline-none font-medium transition-all text-sm"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 hover:from-pink-500 hover:to-indigo-500 text-white font-fredoka font-bold text-base shadow-lg shadow-pink-300/50 dark:shadow-purple-900/50 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2">
+                        <span>Kirim Pesan Ajaib</span>
+                        <i class="fas fa-heart text-pink-200"></i>
+                    </button>
+                </form>
+
+                <!-- Cute Bouncing Social Icons -->
+                <div class="mt-10 pt-8 border-t border-pink-100 dark:border-purple-800/60 text-center space-y-4">
+                    <p class="font-fredoka text-sm font-semibold text-gray-600 dark:text-purple-300">Atau temukan Alfira di media sosial!</p>
+                    <div class="flex justify-center gap-4">
+                        <a href="#" onclick="playCuteSound()" class="w-11 h-11 rounded-2xl bg-pastel-pink text-pink-600 dark:bg-purple-800 dark:text-pink-300 flex items-center justify-center text-lg hover:-translate-y-2 hover:rotate-6 transition-all shadow-sm">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" onclick="playCuteSound()" class="w-11 h-11 rounded-2xl bg-pastel-lilac text-purple-600 dark:bg-purple-800 dark:text-purple-300 flex items-center justify-center text-lg hover:-translate-y-2 hover:-rotate-6 transition-all shadow-sm">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" onclick="playCuteSound()" class="w-11 h-11 rounded-2xl bg-pastel-peach text-orange-600 dark:bg-purple-800 dark:text-orange-300 flex items-center justify-center text-lg hover:-translate-y-2 hover:rotate-6 transition-all shadow-sm">
+                            <i class="fab fa-dribbble"></i>
+                        </a>
+                        <a href="#" onclick="playCuteSound()" class="w-11 h-11 rounded-2xl bg-pastel-mint text-teal-600 dark:bg-purple-800 dark:text-teal-300 flex items-center justify-center text-lg hover:-translate-y-2 hover:-rotate-6 transition-all shadow-sm">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 border-t border-pink-200/50 dark:border-purple-900/50 py-8 bg-white/40 dark:bg-purple-950/40 backdrop-blur-md text-center">
+        <div class="max-w-5xl mx-auto px-4 font-fredoka text-sm text-gray-500 dark:text-purple-300 space-y-2">
+            <p class="flex items-center justify-center gap-1.5">
+                Dibuat dengan <span class="text-pink-500 text-base animate-pulse">💖</span> oleh Alfira Damayanti
+            </p>
+            <p class="text-xs opacity-75">© 2026 Alfira Damayanti. Hak cipta dilindungi.</p>
+        </div>
+    </footer>
+
+    <!-- PROJECT PREVIEW MODAL -->
+    <div id="projectModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="cute-card rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 transform scale-95 transition-transform duration-300 relative bg-white dark:bg-pastel-nightCard">
+            <!-- Modal Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-pink-100 dark:bg-purple-800 text-pink-600 dark:text-pink-300 flex items-center justify-center hover:scale-110 active:scale-95 transition-transform">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="space-y-4">
+                <h3 id="modalTitle" class="font-fredoka text-2xl font-bold text-gray-800 dark:text-purple-100">Judul Proyek</h3>
+                <div class="rounded-2xl overflow-hidden max-h-64 bg-pink-50">
+                    <img id="modalImg" src="" alt="Pratinjau" class="w-full h-full object-cover">
+                </div>
+                <p id="modalDesc" class="text-sm sm:text-base text-gray-600 dark:text-purple-200 font-medium leading-relaxed">Deskripsi proyek...</p>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <button onclick="closeModal()" class="px-5 py-2.5 rounded-full bg-gray-200 dark:bg-purple-800 text-gray-700 dark:text-purple-200 font-fredoka text-sm font-semibold hover:bg-gray-300 transition-colors">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM JAVASCRIPT -->
+    <script>
+        /* -------------------------------------------------------------
+           1. Audio & Sound Effects Toggle (Web Audio API)
+        ------------------------------------------------------------- */
+        let soundEnabled = true;
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const soundIcon = document.getElementById('soundIcon');
+            const soundBtn = document.getElementById('soundToggleBtn');
+            if (soundEnabled) {
+                soundIcon.className = 'fas fa-volume-up text-sm';
+                playCuteSound();
+            } else {
+                soundIcon.className = 'fas fa-volume-mute text-sm';
+            }
+        }
+
+        function playCuteSound(freq = 587.33) { // D5 note
+            if (!soundEnabled) return;
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(freq * 1.5, audioCtx.currentTime + 0.15);
+                
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.15);
+            } catch (e) {
+                // Audio fallback silence
+            }
+        }
+
+        /* -------------------------------------------------------------
+           2. Theme Mode Toggle (Pastel Day / Night Lavender)
+        ------------------------------------------------------------- */
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            playCuteSound(880); // Higher note for theme toggle
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.className = 'fas fa-sun text-sm';
+            } else {
+                html.classList.add('dark');
+                themeIcon.className = 'fas fa-moon text-sm';
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+            playCuteSound(440);
+        }
+
+        /* -------------------------------------------------------------
+           3. Mouse Trail Sparkles Cursor Effect
+        ------------------------------------------------------------- */
+        const sparkleEmojis = ['✨', '🌸', '💖', '⭐', '🍬'];
+        let lastSparkleTime = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastSparkleTime > 70) { // Limit sparkle generation rate
+                createSparkle(e.clientX, e.clientY);
+                lastSparkleTime = now;
+            }
+        });
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('span');
+            sparkle.className = 'sparkle-particle';
+            sparkle.innerText = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+            
+            // Random offset direction
+            const randomX = (Math.random() - 0.5) * 30;
+            const randomY = Math.random() * 20 + 10;
+            sparkle.style.setProperty('--tw-x', `${randomX}px`);
+            sparkle.style.setProperty('--tw-y', `${randomY}px`);
+            
+            sparkle.style.left = `${x}px`;
+            sparkle.style.top = `${y}px`;
+            
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1000);
+        }
+
+        /* -------------------------------------------------------------
+           4. Interactive Animated Mascot Mechanics
+        ------------------------------------------------------------- */
+        function interactMascot(e) {
+            playCuteSound(659.25); // E5 note
+            
+            // Blink Eyes Effect
+            const eyes = document.getElementById('mascotEyes');
+            eyes.style.transform = 'scaleY(0.1)';
+            eyes.style.transformOrigin = 'center';
+            setTimeout(() => {
+                eyes.style.transform = 'scaleY(1)';
+            }, 200);
+
+            // Floating Heart Bubble Burst
+            const wrapper = document.getElementById('mascotWrapper');
+            const heart = document.createElement('div');
+            heart.className = 'heart-bubble';
+            heart.innerText = ['💖', '💕', '✨', '🐾'][Math.floor(Math.random() * 4)];
+            
+            const rect = wrapper.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            heart.style.left = `${clickX}px`;
+            heart.style.top = `${clickY}px`;
+
+            wrapper.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 1500);
+        }
+
+        /* -------------------------------------------------------------
+           5. Floating Background Canvas Animation (Stars, Hearts, Clouds)
+        ------------------------------------------------------------- */
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particles = Array.from({ length: 35 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 12 + 6,
+            speedY: Math.random() * 0.4 + 0.1,
+            speedX: (Math.random() - 0.5) * 0.2,
+            type: Math.floor(Math.random() * 3), // 0: Star, 1: Heart, 2: Sparkle
+            opacity: Math.random() * 0.6 + 0.2,
+            pulseSpeed: Math.random() * 0.02 + 0.005
+        }));
+
+        function drawBackground() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.y -= p.speedY;
+                p.x += p.speedX;
+                p.opacity += Math.sin(Date.now() * p.pulseSpeed) * 0.005;
+
+                if (p.y < -20) {
+                    p.y = canvas.height + 20;
+                    p.x = Math.random() * canvas.width;
+                }
+
+                ctx.save();
+                ctx.globalAlpha = Math.max(0.1, Math.min(1, p.opacity));
+                ctx.font = `${p.size}px Fredoka`;
+                
+                let symbol = '✨';
+                if (p.type === 1) symbol = '🌸';
+                if (p.type === 2) symbol = '☁️';
+
+                ctx.fillText(symbol, p.x, p.y);
+                ctx.restore();
+            });
+
+            requestAnimationFrame(drawBackground);
+        }
+        drawBackground();
+
+        /* -------------------------------------------------------------
+           6. Project Filtering & Modal Controls
+        ------------------------------------------------------------- */
+        function filterProjects(category, event) {
+            playCuteSound(523.25); // C5 note
+            
+            // Toggle Tab Styles
+            document.querySelectorAll('.project-tab-btn').forEach(btn => {
+                btn.className = 'project-tab-btn px-5 py-2 rounded-full text-sm font-semibold bg-white dark:bg-purple-900/80 text-gray-600 dark:text-purple-200 hover:bg-pink-100 transition-all hover:scale-105';
+            });
+            event.currentTarget.className = 'project-tab-btn active px-5 py-2 rounded-full text-sm font-semibold bg-pink-400 text-white shadow-md transition-all hover:scale-105';
+
+            // Filter Grid Items
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function openModal(title, description, imgSrc) {
+            playCuteSound(783.99); // G5 note
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = description;
+            document.getElementById('modalImg').src = imgSrc;
+
+            const modal = document.getElementById('projectModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.children[0].classList.remove('scale-95');
+            modal.children[0].classList.add('scale-100');
+        }
+
+        function closeModal() {
+            playCuteSound(440);
+            const modal = document.getElementById('projectModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.children[0].classList.remove('scale-100');
+            modal.children[0].classList.add('scale-95');
+        }
+
+        /* -------------------------------------------------------------
+           7. Cute Contact Form Handler + Confetti Trigger
+        ------------------------------------------------------------- */
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            playCuteSound(1046.50); // C6 High note
+
+            // Trigger Cute Pastel Confetti
+            if (window.confetti) {
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#FFD1DC', '#E6E6FA', '#E0F8E9', '#FFFACD', '#FFB6C1']
+                });
+            }
+
+            // Message Sent Feedback
+            const form = document.getElementById('contactForm');
+            form.reset();
+            
+            // Show cute notification
+            const notif = document.createElement('div');
+            notif.className = 'fixed bottom-6 right-6 z-50 bg-white dark:bg-purple-900 border-2 border-pink-400 text-pink-600 dark:text-pink-200 px-6 py-4 rounded-3xl shadow-xl font-fredoka flex items-center gap-3 animate-bounce';
+            notif.innerHTML = '<span>💖 Pesan berhasil terkirim! Terima kasih ya!</span>';
+            document.body.appendChild(notif);
+
+            setTimeout(() => {
+                notif.remove();
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
